@@ -1,0 +1,51 @@
+<div class="container p-5" style="display: inline-flex; max-width: 100%">
+	<% @items.each_with_index do |item,index| %>
+		<div class="card m-3" style="width: 20rem;">
+		  <img class="card-img-top" src="/assets/images.png" alt="Card image cap">
+		  <hr>
+		  <div class="card-body">
+		    <h5 class="card-title"><%= item.title %></h5>
+		    <p class="card-text price">Price: <%= item.price%></p>
+		    <% if current_user %>
+		    	<button class="btn btn-primary add-to-cart">Add to cart</button>
+		    <% end %>
+		    <textarea id="quotes_text<%= index %>" name="quote_text" rows="4" cols="23" style="display: none;"></textarea>
+		    <button class="btn btn-primary continue-btn" style="display: none;"> Continue</button>
+		  </div>
+		</div>
+	<% end %>
+</div>
+<div class="container">
+	<p> <b>Note:</b> You can Register/Login to purchase the items</p>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".add-to-cart").on('click',function(){
+			$(this).hide();
+			$($(this).siblings()[2]).show();
+			$($(this).siblings()[3]).show();
+			// $("#quotes_text").show();
+		})
+		$(".continue-btn").on('click',function(){
+			$("#add_tocart").hide();
+			var comment = $("#"+$(this).siblings()[3].id).val()
+			var user_id = "<%= current_user.id if current_user.present? %>"
+			var title = $(this).siblings()[0].innerText
+			var price = $(this).siblings()[1].innerText
+			$.ajax({
+				url: "/cart",
+				type: "POST",
+				data: { 
+				user_id: user_id,
+				item: title,
+				price: price,
+				quote: comment
+				},
+				success: function(response,status){
+					console.log(response)
+				}
+			})
+		})
+	})
+</script>

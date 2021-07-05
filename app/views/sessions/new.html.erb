@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+      <div class="card card-signin my-5">
+        <div class="card-body">
+          <h2 class="card-title text-center">Login</h2>
+					<%= form_tag '/login', id:"form_submit" do %>
+       	  	<%= label_tag :Email %>
+						<%= text_field_tag :email, "", class: 'form-control mb-1'%>
+						<label id="email_error"  class="d_none t_error"></label><br>
+						<%= label_tag :Password %>
+						<%= password_field_tag :password, "", class: 'form-control mb-2'%>
+						<label id="pwd_error"  class="d_none t_error"></label><br>
+						<p class="text-center">
+							<%= submit_tag "Login", class:'btn btn-lg btn-primary pl-3 pr-3'%>
+						</p>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#form_submit").submit(function(){
+			var email_field = $("#email").val()
+			var pwd_field = $("#password").val()
+			if(email_field.trim().length == 0){;
+				$("#email_error").text("Enter your email").show();
+				return false;
+			}else if(pwd_field.trim().length == 0 || pwd_field.trim().length < 5){
+				$("#email_error").hide()
+				$("#pwd_error").text("Enter valid password").show();
+				return false;
+			}
+		})
+	})
+</script>
