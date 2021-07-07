@@ -11,7 +11,8 @@ class Cart < ApplicationRecord
 
 	def add_items_to_cart(params_data)
 		cart = Cart.new
-		cart.user_id = User.find_by(email: params_data[:userdetail]).id
+		binding.pry
+		cart.user_id = params_data[:user_id]
 		cart.item_id = Item.find_by(title: params_data[:item]).id
 		cart.save!
 	end

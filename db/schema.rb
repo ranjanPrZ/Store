@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2021_07_04_172135) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "carts", force: :cascade do |t|
     t.string "user_id", null: false
     t.string "item_id", null: false
@@ -31,8 +34,8 @@ ActiveRecord::Schema.define(version: 2021_07_04_172135) do
   create_table "quotes", force: :cascade do |t|
     t.string "title"
     t.string "item_detail"
-    t.integer "user_id"
-    t.integer "item_id"
+    t.bigint "user_id"
+    t.bigint "item_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["item_id"], name: "index_quotes_on_item_id"
@@ -45,7 +48,9 @@ ActiveRecord::Schema.define(version: 2021_07_04_172135) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "admin"
+    t.boolean "admin", default: false
   end
 
+  add_foreign_key "quotes", "items"
+  add_foreign_key "quotes", "users"
 end
