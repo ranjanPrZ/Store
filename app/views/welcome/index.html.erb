@@ -9,14 +9,16 @@
 		    <% if current_user %>
 		    	<button class="btn btn-primary add-to-cart">Add to cart</button>
 		    <% end %>
-		    <textarea id="quotes_text<%= index %>" name="quote_text" rows="4" cols="23" style="display: none;"></textarea>
+		    <textarea id="quotes_text<%= index %>" name="quote_text" rows="4" cols="23" style="display: none;" placeholder="Enter your quotes"></textarea>
 		    <button class="btn btn-primary continue-btn" style="display: none;"> Continue</button>
 		  </div>
 		</div>
 	<% end %>
 </div>
 <div class="container">
+	<% if current_user.present? == false %>
 	<p> <b>Note:</b> You can Register/Login to purchase the items</p>
+	<% end %>
 </div>
 
 <script type="text/javascript">

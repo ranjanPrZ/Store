@@ -2,7 +2,7 @@
   <div class="row mt-5">
     <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
       <div class="card card-signin my-5">
-        <div class="card-body">
+        <div class="card-body shadow-lg bg-white rounded">
           <h2 class="card-title text-center">Create item</h2>
 					<%= form_for :item, url: '/addItem' do |f| %>
        	  	<%= label_tag :Title %>
@@ -10,7 +10,7 @@
 						<%= label_tag :Price %>
 						<%= text_field_tag :price, "", class: 'form-control mb-4'%>
 						<p class="text-center">
-							<%= submit_tag "Create Item", class:'btn btn-lg btn-primary pl-3 pr-3'%>
+							<%= submit_tag "Create", class:'btn btn-lg btn-primary pl-3 pr-3'%>
 						</p>
 					<% end %>
 				</div>
