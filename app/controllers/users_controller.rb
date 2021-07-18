@@ -3,8 +3,15 @@ class UsersController < ApplicationController
   end
 
   def create
+    departments = Department.select(:id,:name)
+    if departments.map(&:name).include?(params[:department])
+      dep_id = departments.select{ |x| x.name == params[:department]}.first.id
+    else
+      dep_id = Department.create({'name':params[:department]}).id
+    end
 	  user = User.new(user_params)
-	  if user.save
+    user.department_id = dep_id
+	  if user.save!
 	    session[:user_id] = user.id
 	    redirect_to '/'
 	  else
@@ -15,6 +22,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-  	params.require(:user).permit(:name, :email, :password, :password_confirmation)
+  	params.permit(:name, :email, :password, :password_confirmation)
   end
 end

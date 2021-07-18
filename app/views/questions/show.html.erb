@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-sm-9 col-md-7 col-lg-9 mx-auto">
+      <div class="m5 px-3 shadow bg-white rounded">
+      	<div style="display:inline-flex; width:100%;">
+    			<div class=" pt-4" style="width:50%;"><h3><%= @question.title %></h3></div>
+      		<div class="text-right p-3" style=" width:50%;">
+      			<%= link_to "Add Question", '/question/new', class:'btn btn-lg btn-primary' %>
+      		</div>
+      	</div>
+      	<h5 class="pt-4"><%= @question.body %></h5>
+      	<h4>Your Answer</h4>
+      	<textarea  placeholder="Enter your answer here..." id="ans_body">
+      	</textarea>
+      	<button  class="btn btn-lg btn-primary mt-2 mb-5">Post answer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style type="text/css">
+	#ans_body{
+		height: 200px;
+		width: 100%
+	}
+</style>

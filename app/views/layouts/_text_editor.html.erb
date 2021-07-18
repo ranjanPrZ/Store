@@ -1,0 +1,45 @@
+<!-- Include Quill stylesheet -->
+<link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">
+
+<!-- Create the toolbar container -->
+<div id="toolbar">
+  <button class="ql-bold">Bold</button>
+  <button class="ql-italic">Italic</button>
+  <button class="ql-underline">Underline</button>
+  <select class="ql-size">
+    <option value="small"></option>
+    <option selected></option>
+    <option value="large"></option>
+    <option value="huge"></option>
+  </select>
+  <img class="ql-image">
+</div>
+
+<!-- Create the editor container -->
+<div id="editor">
+</div>
+<script>
+  var editor = new Quill('#editor', {
+    modules: { toolbar: '#toolbar' },
+    placeholder: 'Write your answer...',
+    theme: 'snow'
+  });
+	var quill = new Quill('#editor-container', {
+	  modules: {
+	    toolbar: [/
+	      [{ header: [1,5, false] }],
+	      ['bold', 'italic', 'underline'],
+	      ['image', 'code-block']
+	    ]
+	  },
+	});
+</script>
+
+<style type="text/css">
+	#editor-container {
+	  height: 375px;
+	}
+  .ql-editor{
+    min-height: 200px;
+  }
+</style>

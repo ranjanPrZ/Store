@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_04_172135) do
+ActiveRecord::Schema.define(version: 2021_07_18_064347) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "answers", force: :cascade do |t|
+    t.string "title"
+    t.bigint "question_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id"], name: "index_answers_on_question_id"
+  end
 
   create_table "carts", force: :cascade do |t|
     t.string "user_id", null: false
@@ -24,11 +32,35 @@ ActiveRecord::Schema.define(version: 2021_07_04_172135) do
     t.index ["user_id"], name: "index_carts_on_user_id"
   end
 
+  create_table "departments", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "discussions", force: :cascade do |t|
+    t.bigint "question_id"
+    t.bigint "user_id"
+    t.bigint "answer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["answer_id"], name: "index_discussions_on_answer_id"
+    t.index ["question_id"], name: "index_discussions_on_question_id"
+    t.index ["user_id"], name: "index_discussions_on_user_id"
+  end
+
   create_table "items", force: :cascade do |t|
     t.string "title"
     t.string "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "body"
   end
 
   create_table "quotes", force: :cascade do |t|
@@ -49,8 +81,13 @@ ActiveRecord::Schema.define(version: 2021_07_04_172135) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "admin", default: false
+    t.integer "department_id"
   end
 
+  add_foreign_key "answers", "questions"
+  add_foreign_key "discussions", "answers"
+  add_foreign_key "discussions", "questions"
+  add_foreign_key "discussions", "users"
   add_foreign_key "quotes", "items"
   add_foreign_key "quotes", "users"
 end

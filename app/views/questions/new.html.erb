@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-sm-9 col-md-7 col-lg-9 mx-auto">
+      <div class="m5 shadow bg-white rounded">
+        <h2 class="mt-5 px-3 pb-3 pt-4">Ask a public question</h2>
+        <div class="mx-5 my-4 pb-5">
+					<%= form_tag '/question/create', id:"form_submit" do %>
+	     	  	<%= label_tag :Title %>
+						<%= text_field_tag :title, "", class: 'form-control mb-1'%>
+						<label id="email_error"  class="d_none t_error"></label><br>
+						<%= label_tag :Body %>
+						<%= text_field_tag :body, "", class: 'form-control mb-2'%>
+						<label id="pwd_error" class="d_none t_error"></label><br>
+						<p class="text-center pt-4">
+							<%= submit_tag "Post question", class:'btn btn-lg btn-primary pl-3 pr-3'%>
+						</p>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#form_submit").submit(function(){
+			var email_field = $("#title").val()
+			if(email_field.trim().length == 0){;
+				$("#email_error").text("Enter valid question").show();
+				return false;
+			}
+		})
+	})
+</script>
